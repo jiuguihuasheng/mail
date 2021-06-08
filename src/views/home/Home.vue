@@ -4,7 +4,7 @@
     <div slot="center">购物街</div>
   </nav-bar>
   <swiper>
-    <slide></slide>
+    <swiper-item></swiper-item>
   </swiper>
     <h2>首页</h2>
   </div>
@@ -13,7 +13,7 @@
 <script>
 import NavBar from 'components/common/navbar/NavBar'
 import { getHomeMulData } from 'network/home'
-import { Swiper, Slide } from 'components/common/swiper'
+import { Swiper, SwiperItem } from 'components/common/swiper'
 
 export default {
   name: 'Home',
@@ -25,7 +25,7 @@ export default {
   components: {
     NavBar,
     Swiper,
-    Slide
+    SwiperItem
   },
   created() {
     getHomeMulData().then(data => {

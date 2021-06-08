@@ -1,9 +1,10 @@
 import { request } from './request';
 
-function getHomeMulData () {
+function getHomeMulData (query) {
   return request({
-    url: '',
-    method: 'GET'
+    url: '/vue-element-admin/article/list',
+    method: 'get',
+    params: query
   });
 }
 
