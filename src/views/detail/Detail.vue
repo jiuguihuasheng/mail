@@ -9,7 +9,7 @@ export default {
       id: null
     }
   },
-  activated() {
+  created() {
     console.log(this.$route.params)
     this.id = this.$route.params.id;
   }
