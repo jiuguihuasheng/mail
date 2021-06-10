@@ -6,6 +6,8 @@ import VueLazyLoad from 'vue-lazyload'
 
 Vue.config.productionTip = false
 
+Vue.prototype.$bus = new Vue();
+
 Vue.use(VueLazyLoad, {
   preLoad: 1,
   loading: require('assets/img/common/loading.gif')

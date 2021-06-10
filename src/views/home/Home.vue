@@ -5,8 +5,9 @@
     </nav-bar>
 
     <tab-control
+      ref="tabControlFixed"
       v-show="isTabFixed"
-      class="fixed"
+      class="tab-control"
       @typeChange="typeChange"
       :tabs="tabs"
     ></tab-control>
@@ -34,7 +35,6 @@
 
       <tab-control
         ref="tabControl"
-        class="tab-control"
         :tabs="tabs"
         @typeChange="typeChange"
       ></tab-control>
@@ -56,9 +56,11 @@ import Feature from "./components/Feature.vue";
 import Recommend from "./components/Recommend.vue";
 import TabControl from "components/content/tabControl/TabControl";
 import Goods from "components/content/goods/Goods";
+import BackTop from "components/content/backTop/BackTop";
+
 import { getHomeMulData, getGoods } from "network/home";
 import { NEW, POP, SELL, BACKTOP_DISTANCE } from "@/common/const";
-import BackTop from "components/content/backTop/BackTop";
+import { debounce } from "@/common/util";
 
 export default {
   name: "Home",
@@ -75,6 +77,7 @@ export default {
       isTabFixed: false,
       tabOffsetTop: 0,
       showBackTop: false,
+      saveY: 0
     };
   },
   components: {
@@ -93,6 +96,19 @@ export default {
     this.getGoods("pop");
     this.getGoods("new");
     this.getGoods("sell");
+  },
+  mounted() {
+    const refresh = debounce(this.$refs.scroll.refresh, 500);
+    this.$bus.$on('imgLoad', msg => {
+      refresh(msg);
+    })
+  },
+  activated() {
+    this.$refs.scroll.scrollTo(0, this.saveY, 0);
+    this.$refs.scroll.refresh();
+  },
+  deactivated() {
+    this.saveY = this.$refs.scroll.getScrollY();
   },
   computed: {
     showGoods() {
@@ -118,9 +134,10 @@ export default {
       getHomeMulData()
         .then((res) => {
           this.banners = res.data.items;
-          // 下次更新DOM时,获取新的tabOffsetTop值(不保险,可以在updated钩子中获取)
+          // 下次更新DOM时,获取新的tabOffsetTop值
           this.$nextTick(() => {
             this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
+            console.log(this.tabOffsetTop)
           })
         })
         .catch((err) => {
@@ -153,6 +170,8 @@ export default {
           this.type = SELL;
           break;
       }
+      this.$refs.tabControl.currentIndex = index;
+      this.$refs.tabControlFixed.currentIndex = index;
     },
   },
 };
@@ -168,27 +187,16 @@ export default {
   background-color: var(--color-tint);
   color: #fff;
   box-shadow: 0 1px 1px rgba(100, 100, 100, 0.1);
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: 4;
 }
 .tab-control {
-  position: sticky;
-  top: 44px;
+  position: relative;
   z-index: 4;
 }
 .content {
+  overflow: hidden;
   position: absolute;
-  top: 44px;
+  top: 46px;
   bottom: 49px;
-  left: 0;
-  right: 0;
-}
-.fixed {
-  position: fixed;
-  top: 44px;
   left: 0;
   right: 0;
 }

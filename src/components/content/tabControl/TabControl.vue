@@ -26,6 +26,7 @@ export default {
   },
   methods: {
     tabClick(index) {
+      console.log(index)
       this.currentIndex = index;
       this.$emit('typeChange', index)
     }

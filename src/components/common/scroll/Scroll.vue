@@ -33,7 +33,8 @@ export default {
     };
   },
   mounted() {
-    setTimeout(this.__initScroll, 20);
+    // setTimeout(this.__initScroll, 20);
+    this.__initScroll();
   },
   methods: {
     __initScroll() {
@@ -52,11 +53,13 @@ export default {
 
       // 3.监听上拉到底部
       this.scroll.on('pullingUp', () => {
+        // 防抖处理(延时)
         console.log('上拉加载');
         this.$emit('pullingUp');
       });
     },
     refresh() {
+      console.log('refresh');
       this.scroll && this.scroll.refresh && this.scroll.refresh();
     },
     finishPullUp() {
@@ -65,12 +68,15 @@ export default {
     scrollTo(x, y, time) {
       this.scroll && this.scroll.scrollTo && this.scroll.scrollTo(x, y, time);
     },
+    getScrollY() {
+      return this.scroll ? this.scroll.y : 0;
+    }
   },
-  watch: {
-    data() {
-      setTimeout(this.refresh, 20);
-    },
-  },
+  // watch: {
+  //   data() {
+  //     setTimeout(this.refresh, 20);
+  //   },
+  // },
 };
 </script>
 
