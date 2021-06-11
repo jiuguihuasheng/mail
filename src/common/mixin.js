@@ -11,6 +11,8 @@ export const backTopMixin = {
       this.$refs.scroll.scrollTo(0, 0, 300);
     }
   }
+  // created(){}
+  // components: {}
 }
 
 export const tabControlMixin = {

@@ -54,7 +54,7 @@ export default {
         this.cols;
       for (let i = 0; i < children.length; i++) {
         let item = children[i];
-        item.style.width = itemWidth + "px";
+        item.style.width = (itemWidth-1) + "px";
         if ((i + 1) % this.cols !== 0) {
           item.style.marginRight = this.itemSpace + "px";
         }

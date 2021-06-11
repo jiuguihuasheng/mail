@@ -77,7 +77,8 @@ export default {
       isTabFixed: false,
       tabOffsetTop: 0,
       showBackTop: false,
-      saveY: 0
+      saveY: 0,
+      imgListenner: null
     };
   },
   components: {
@@ -98,10 +99,11 @@ export default {
     this.getGoods("sell");
   },
   mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 500);
-    this.$bus.$on('imgLoad', msg => {
-      refresh(msg);
-    })
+    const refresh = debounce(this.$refs.scroll.refresh, 100);
+    this.imgListenner = () => {
+      refresh();
+    }
+    this.$bus.$on('imgLoad', this.imgListenner)
   },
   activated() {
     console.log(this.saveY)
@@ -111,6 +113,9 @@ export default {
   deactivated() {
     this.saveY = this.$refs.scroll.getScrollY();
     console.log(this.saveY)
+
+    // 取消监听图片加载事件
+    this.$bus.$off('imgLoad', this.imgListenner)
   },
   computed: {
     showGoods() {

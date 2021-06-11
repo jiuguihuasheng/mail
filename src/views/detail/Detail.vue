@@ -87,6 +87,7 @@ import {
 } from "network/detail";
 import { backTopMixin } from "@/common/mixin";
 import { BACKTOP_DISTANCE } from "@/common/const";
+import { debounce } from "@/common/util";
 
 export default {
   name: "Detail",
@@ -117,15 +118,26 @@ export default {
       themeTops: [],
       titleInfos: ["商品", "参数", "评论", "推荐"],
       currentIndex: 0,
+      imgListenner: null,
     };
   },
   created() {
     this._getDetailData();
     this._getRecommend();
   },
+  mounted() {
+    const refresh = debounce(this.$refs.scroll.refresh, 100);
+    this.imgListenner = () => {
+      refresh();
+    };
+    this.$bus.$on("imgLoad", this.imgListenner);
+  },
   updated() {
     // 获取需要的四个offsetTop
     this._getOffsetTops();
+  },
+  destroyed() {
+    this.$bus.$off('imgLoad', this.imgListenner)
   },
   methods: {
     itemClick(index) {

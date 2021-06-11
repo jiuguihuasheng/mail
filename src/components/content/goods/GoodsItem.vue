@@ -32,7 +32,14 @@ export default {
       this.$router.push({ path: "/detail/" + iid });
     },
     imgLoad() {
+      // 方法1 发送同一事件在离开的组件取消监听
       this.$bus.$emit('imgLoad', '来自goodsitem：图片加载完成')
+      // 方法2 不同路由发送不同事件
+      // if (this.$route.path.indexOf('/home')) {
+      //   this.$bus.$emit('imgLoad', '来自goodsitem：图片加载完成')
+      // } else if (this.$route.path.indexOf('/detail')) {
+      //   this.$bus.$emit('detailImgLoad', '来自goodsitem：图片加载完成')
+      // }
     }
   },
   computed: {
