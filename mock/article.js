@@ -24,6 +24,84 @@ for (let i = 0; i < count; i++) {
     // comment_disabled: true,
     // pageviews: '@integer(300, 5000)',
     // platforms: ['a-platform']
+    detail: {
+      id: '@id',
+      result: {
+        columns: ['销量 @integer(300, 5000)', '收藏@integer(400, 4000)', '默认快递'],
+        detailInfo: {},
+        esi: '',
+        isLogin: false,
+        itemInfo: {
+          title: 'title',
+          desc: 'desc',
+          newPrice: 'newPrice',
+          oldPrice: 'oldPrice',
+          nowPrice: 'nowPrice',
+          discount: 'discount',
+          topImages: ['http://via.placeholder.com/300x150/008000/FFFFFF?text=img1','http://via.placeholder.com/300x150/008000/FFFFFF?text=img2','http://via.placeholder.com/300x150/008000/FFFFFF?text=img3']
+        },
+        itemParams: {
+          info: {
+            // images: [],
+            set: [
+              {
+                key: 'key',
+                value: 'value'
+              }
+            ]
+          },
+          rule: {
+            tables: [
+              [
+                [
+                  1,2,3
+                ],
+              ]
+            ]
+          }
+        },
+        promotions: {
+          alertData: {},
+          link: '',
+          list: []
+        },
+        rate: {
+          cRate: 125,
+          list: [
+            {
+              canExplain: false,
+              content: '物美价廉',
+              created: 1535694719,
+              extraInfo: ['是否合身:合身'],
+              images: ['http://via.placeholder.com/400x299/008000/FFFFFF?text=img'],
+              isAnonymous: 1,
+              isEmpty: 0,
+              level: '',
+              rateId: '11624z5q',
+              style: '颜色:上衣+裤子 尺码:M ',
+              user: {}
+            }
+          ]
+        },
+        shopInfo: {
+          cFans: 40249,
+          cGoods: 45,
+          cCells: 303067,
+          services: [
+            {
+              name: 'name',
+              icon: 'icon'
+            }
+          ]
+        },
+        skuInfo: {
+          defaultPrice: '$55.00',
+          isAbroad: false,
+          props: []
+        },
+        topBar: {}
+      }
+    }
   }))
 }
 
@@ -84,61 +162,83 @@ module.exports = [
     }
   },
 
+  // detail
   {
-    url: '/vue-element-admin/article/detail',
+    url: '/detail',
     type: 'get',
     response: config => {
-      const { id } = config.query
+      console.log(config.query)
       for (const article of List) {
-        if (article.id === +id) {
+        // if (article.id === +id) {
           return {
             code: 20000,
-            data: article
+            data: article.detail
           }
-        }
+        // }
       }
     }
   },
 
   {
-    url: '/vue-element-admin/article/pv',
+    url: '/recommend',
     type: 'get',
     // eslint-disable-next-line no-unused-vars
     response: _ => {
       return {
         code: 20000,
         data: {
-          pvData: [
-            { key: 'PC', pv: 1024 },
-            { key: 'mobile', pv: 1024 },
-            { key: 'ios', pv: 1024 },
-            { key: 'android', pv: 1024 }
+          list: [
+            {
+              id: '@increment',
+              title: '@first',
+              image_uri: image_uri + 1,
+              price: '@integer(300, 5000)',
+              cfav: '@integer(300, 5000)',
+            },
+            {
+              id: '@increment',
+              title: '@first',
+              image_uri: image_uri + 2,
+              price: '@integer(300, 5000)',
+              cfav: '@integer(300, 5000)',
+            },
+            {
+              id: '@increment',
+              title: '@first',
+              image_uri: image_uri + 3,
+              price: '@integer(300, 5000)',
+              cfav: '@integer(300, 5000)',
+            },
+            {
+              id: '@increment',
+              title: '@first',
+              image_uri: image_uri + 4,
+              price: '@integer(300, 5000)',
+              cfav: '@integer(300, 5000)',
+            },
+            {
+              id: '@increment',
+              title: '@first',
+              image_uri: image_uri + 5,
+              price: '@integer(300, 5000)',
+              cfav: '@integer(300, 5000)',
+            },
+            {
+              id: '@increment',
+              title: '@first',
+              image_uri: image_uri + 6,
+              price: '@integer(300, 5000)',
+              cfav: '@integer(300, 5000)',
+            },
+            {
+              id: '@increment',
+              title: '@first',
+              image_uri: image_uri + 7,
+              price: '@integer(300, 5000)',
+              cfav: '@integer(300, 5000)',
+            },
           ]
         }
-      }
-    }
-  },
-
-  {
-    url: '/vue-element-admin/article/create',
-    type: 'post',
-    // eslint-disable-next-line no-unused-vars
-    response: _ => {
-      return {
-        code: 20000,
-        data: 'success'
-      }
-    }
-  },
-
-  {
-    url: '/vue-element-admin/article/update',
-    type: 'post',
-    // eslint-disable-next-line no-unused-vars
-    response: _ => {
-      return {
-        code: 20000,
-        data: 'success'
       }
     }
   }
