@@ -17,6 +17,11 @@ export default {
     Swiper,
     SwiperItem,
   },
+  inject: ['p1', 'p2'],
+  created() {
+    console.log(this.p1);
+    console.log(this.p2());
+  },
   props: {
     images: {
       type: Array,

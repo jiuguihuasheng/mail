@@ -104,6 +104,12 @@ export default {
     DetailSwiper,
     BackTop,
   },
+  provide: {
+    p1: 'p1',
+    p2() {
+      return 'p2'
+    }
+  },
   mixins: [backTopMixin],
   data() {
     return {
