@@ -88,6 +88,8 @@ import {
 import { backTopMixin } from "@/common/mixin";
 import { debounce } from "@/common/util";
 
+import {ADD_CART} from 'store/mutations-type';
+
 export default {
   name: "Detail",
   components: {
@@ -203,7 +205,7 @@ export default {
       obj.desc = this.goods.desc;
       obj.newPrice = this.goods.nowPrice;
       // 3.添加到Store中
-      this.$store.commit("addCart", obj);
+      this.$store.dispatch(ADD_CART, obj)
     },
     _getDetailData() {
       // 1.获取id
