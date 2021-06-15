@@ -14,14 +14,14 @@
 export default {
   name: "CheckButton",
   props: {
-    value: {
+    ischeck: {
       type: Boolean,
       default: true,
     },
   },
   data: function () {
     return {
-      checked: this.value,
+      checked: this.ischeck,
     };
   },
   methods: {
@@ -30,7 +30,7 @@ export default {
     },
   },
   watch: {
-    value: function (newValue) {
+    ischeck: function (newValue) {
       this.checked = newValue;
     },
   },

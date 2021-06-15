@@ -88,6 +88,7 @@ import {
 import { backTopMixin } from "@/common/mixin";
 import { debounce } from "@/common/util";
 
+import { mapActions } from 'vuex';
 import {ADD_CART} from 'store/mutations-type';
 
 export default {
@@ -195,6 +196,7 @@ export default {
         }
       }
     },
+    ...mapActions([ADD_CART]), // action第二种写法
     addToCart() {
       // 1.创建对象
       const obj = {};
@@ -205,7 +207,9 @@ export default {
       obj.desc = this.goods.desc;
       obj.newPrice = this.goods.nowPrice;
       // 3.添加到Store中
-      this.$store.dispatch(ADD_CART, obj)
+      // this.$store.dispatch(ADD_CART, obj) // action第一种写法
+      this[ADD_CART](obj); // action第二种写法
+      // console.log(this[ADD_CART](obj)) action返回的是Promise，因此可以通过.then回调拿到结果
     },
     _getDetailData() {
       // 1.获取id

@@ -55,12 +55,10 @@ export default {
   },
   mounted: function () {
     // 1.操作DOM, 在前后添加Slide
-    setTimeout(() => { // 感觉这个定时器没必要
       this.handleDom();
 
       // 2.开启定时器
       this.startTimer();
-    }, 3000);
   },
   methods: {
     /**

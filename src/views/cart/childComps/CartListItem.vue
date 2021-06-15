@@ -1,7 +1,8 @@
 <template>
   <div id="shop-item">
     <div class="item-selector">
-      <CheckButton @checkBtnClick="checkedChange" v-model="itemInfo.checked"></CheckButton>
+      <!-- 如果子组件props接受的属性名定义成value则可以把:ischeck改成v-model -->
+      <CheckButton @checkBtnClick="checkedChange" :ischeck="itemInfo.checked"></CheckButton>
     </div>
     <div class="item-img">
       <img :src="itemInfo.imgURL" alt="商品图片">

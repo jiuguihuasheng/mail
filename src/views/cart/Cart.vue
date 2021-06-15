@@ -12,6 +12,7 @@
 import NavBar from "components/common/navbar/NavBar";
 import CartList from "./childComps/CartList";
 import BottomBar from "./childComps/BottomBar";
+import { mapGetters } from 'vuex'
 
 export default {
   name: "Cart",
@@ -21,12 +22,13 @@ export default {
     BottomBar,
   },
   computed: {
-    cartList() {
-      return this.$store.getters.cartList;
-    },
-    cartCount() {
-      return this.$store.getters.cartCount;
-    },
+    // cartList() {
+    //   return this.$store.getters.cartList;
+    // },
+    // cartCount() {
+    //   return this.$store.getters.cartCount;
+    // },
+    ...mapGetters(['cartList', 'cartCount'])
   },
 };
 </script>

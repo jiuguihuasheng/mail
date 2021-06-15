@@ -1,9 +1,10 @@
 <template>
   <div class="bottom-menu">
+    <!-- 如果子组件props接受的属性名定义成value则可以把:ischeck改成v-model -->
     <CheckButton
       class="select-all"
       @checkBtnClick="checkBtnClick"
-      v-model="isSelectAll"
+      :ischeck="isSelectAll"
     ></CheckButton>
     <span>全选</span>
     <span class="total-price">合计: ¥{{ totalPrice }}</span>
@@ -13,6 +14,7 @@
 
 <script>
 import CheckButton from "./CheckButton";
+import { mapGetters } from 'vuex'
 
 export default {
   name: "BottomBar",
@@ -20,9 +22,9 @@ export default {
     CheckButton,
   },
   computed: {
+    ...mapGetters(['cartList']),
     totalPrice() {
-      const cartList = this.$store.getters.cartList;
-      return cartList
+      return this.cartList
         .filter((item) => {
           return item.checked;
         })
@@ -33,7 +35,7 @@ export default {
     },
     isSelectAll: function () {
       return (
-        this.$store.getters.cartList.find((item) => item.checked === false) ===
+        this.cartList.find((item) => item.checked === false) ===
         undefined
       );
     },
