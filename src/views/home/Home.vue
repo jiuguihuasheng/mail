@@ -59,8 +59,9 @@ import Goods from "components/content/goods/Goods";
 import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMulData, getGoods } from "network/home";
-import { NEW, POP, SELL, BACKTOP_DISTANCE } from "@/common/const";
+import { NEW, POP, SELL } from "@/common/const";
 import { debounce } from "@/common/util";
+import { backTopMixin } from "@/common/mixin";
 
 export default {
   name: "Home",
@@ -76,7 +77,6 @@ export default {
       type: POP,
       isTabFixed: false,
       tabOffsetTop: 0,
-      showBackTop: false,
       saveY: 0,
       imgListenner: null
     };
@@ -92,6 +92,7 @@ export default {
     Goods,
     BackTop,
   },
+  mixins: [backTopMixin],
   created() {
     this.getHomeMulData();
     this.getGoods("pop");
@@ -128,14 +129,11 @@ export default {
       this.isTabFixed = position.y < -this.tabOffsetTop;
 
       // 2.决定backTop是否显示
-      this.showBackTop = position.y < -BACKTOP_DISTANCE;
+      this.listenShowBackTop(position);
     },
     loadMore() {
       console.log("下拉获取更多");
       this.getGoods(this.type);
-    },
-    backTop() {
-      this.$refs.scroll.scrollTo(0, 0, 300);
     },
     getHomeMulData() {
       getHomeMulData()

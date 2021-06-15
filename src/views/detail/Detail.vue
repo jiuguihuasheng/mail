@@ -58,7 +58,7 @@
 
     <detail-bottom-bar @addToCart="addToCart"></detail-bottom-bar>
 
-    <back-top @backTop="backTop" class="back-top" v-show="showBackTop">
+    <back-top @click.native="backTop" class="back-top" v-show="showBackTop">
       <img src="~assets/img/common/top.png" alt="" />
     </back-top>
   </div>
@@ -86,7 +86,6 @@ import {
   GoodsParam,
 } from "network/detail";
 import { backTopMixin } from "@/common/mixin";
-import { BACKTOP_DISTANCE } from "@/common/const";
 import { debounce } from "@/common/util";
 
 export default {
@@ -148,7 +147,7 @@ export default {
   methods: {
     itemClick(index) {
       this.currentIndex = index;
-      console.log(this.themeTops[index]);
+      // console.log(this.themeTops[index]);
       this.$refs.scroll.scrollTo(0, -this.themeTops[index], 100);
     },
     backClick() {
@@ -161,17 +160,17 @@ export default {
       this.themeTops.push(this.$refs.comment.$el.offsetTop);
       this.themeTops.push(this.$refs.recommend.$el.offsetTop);
       this.themeTops.push(Number.MAX_VALUE);
+      // console.log(this.themeTops);
     },
     contentScroll(position) {
-      // 1.监听backTop的显示
-      this.showBackTop = position.y < -BACKTOP_DISTANCE;
-
-      // 2.监听滚动到哪一个主题
+      // 是否显示返回顶部
+      this.listenShowBackTop(position);
+      // 监听滚动到哪一个主题
       this._listenScrollTheme(-position.y);
     },
     _listenScrollTheme(position) {
       let length = this.themeTops.length;
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < length-1; i++) {
         let iPos = this.themeTops[i];
         /**
          * 判断的方案:
@@ -244,6 +243,8 @@ export default {
           this.commentInfo = data.rate.list[0];
         }
       });
+
+      // 根据最新数据dom已渲染 但图片是异步加载因此不推荐使用this.$nextTick(callback)获取themeTops
     },
     _getRecommend() {
       getRecommend().then((res, error) => {

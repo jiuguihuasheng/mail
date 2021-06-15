@@ -1,4 +1,4 @@
-import {POP, NEW, SELL} from "./const";
+import {POP, NEW, SELL, BACKTOP_DISTANCE} from "./const";
 
 export const backTopMixin = {
   data: function () {
@@ -9,6 +9,10 @@ export const backTopMixin = {
   methods: {
     backTop: function () {
       this.$refs.scroll.scrollTo(0, 0, 300);
+    },
+    listenShowBackTop (position) {
+      // 决定backTop是否显示
+      this.showBackTop = position.y < -BACKTOP_DISTANCE;
     }
   }
   // created(){}
