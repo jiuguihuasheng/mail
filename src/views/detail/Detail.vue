@@ -148,6 +148,8 @@ export default {
   methods: {
     itemClick(index) {
       this.currentIndex = index;
+      console.log(this.themeTops[index]);
+      this.$refs.scroll.scrollTo(0, -this.themeTops[index], 100);
     },
     backClick() {
       this.$router.back();
@@ -191,10 +193,6 @@ export default {
           break;
         }
       }
-    },
-    titleClick(index) {
-      console.log(this.themeTops[index]);
-      this.$refs.scroll.scrollTo(0, -this.themeTops[index], 100);
     },
     addToCart() {
       // 1.创建对象
