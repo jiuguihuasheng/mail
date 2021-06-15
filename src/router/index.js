@@ -36,6 +36,12 @@ const routes = [
     component: Category,
     meta: {
       title: '分类'
+    },
+    // 路由独享的守卫
+    beforeEnter: (to, from, next) => {
+      console.log('beforeEnter to-------', to)
+      console.log('beforeEnter from-------', from)
+      next()
     }
   },
   {
@@ -80,6 +86,12 @@ router.beforeEach((to, from, next) => {
   // 例子：
   // 根据用户是否登录跳转
   // if (login) { next() } else { next('/login') }
+})
+
+router.beforeResolve((to, from, next) => {
+  console.log('beforeResolve to-------', to);
+  console.log('beforeResolve from-------', from);
+  next();
 })
 
 // 后置钩子hook
