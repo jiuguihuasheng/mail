@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueLazyLoad from 'vue-lazyload'
+import FastClick from 'fastclick'
 import Toast from 'components/common/toast'
 
 Vue.config.productionTip = false
@@ -15,6 +16,9 @@ Vue.use(VueLazyLoad, {
 })
 
 Vue.use(Toast);
+
+// 解决移动端300ms延迟
+FastClick.attach(document.body);
 
 new Vue({
   router,
