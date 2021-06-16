@@ -208,7 +208,9 @@ export default {
       obj.newPrice = this.goods.nowPrice;
       // 3.添加到Store中
       // this.$store.dispatch(ADD_CART, obj) // action第一种写法
-      this[ADD_CART](obj); // action第二种写法
+      this[ADD_CART](obj).then(res => { // action第二种写法
+        this.$toast.show(res); // 提示消息
+      });
       // console.log(this[ADD_CART](obj)) action返回的是Promise，因此可以通过.then回调拿到结果
     },
     _getDetailData() {
