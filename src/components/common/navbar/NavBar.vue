@@ -22,6 +22,7 @@ export default {
 .nav-bar {
   display: flex;
   text-align: center;
+  height: 46px;
   line-height: 46px;
 }
 .left,.right {
