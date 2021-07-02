@@ -78,9 +78,9 @@
       }
     }
 
-    class Dep {
+    class Dep { // depend依赖
       constructor() {
-        this.subs = [];
+        this.subs = []; // subscribe订阅
       }
       addSub(watcher) {
         this.subs.push(watcher);
@@ -92,7 +92,7 @@
       }
     }
 
-    class Watcher {
+    class Watcher { // 观察者
       constructor(node, name, vm) {
         this.node = node;
         this.name = name;
@@ -118,7 +118,7 @@
       }
 
       _createFragment() { // fragment碎片 片段
-        const frag = document.createDocumentFragment(); // createdocumentfragment()方法创建了一虚拟的节点对象，节点对象包含所有属性和方法
+        const frag = document.createDocumentFragment(); // createDocumentFragment()方法创建了一虚拟的节点对象，节点对象包含所有属性和方法
 
         let child;
         while (child = this.el.firstChild) {
